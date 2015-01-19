@@ -86,7 +86,7 @@ The server should now be running, and it should be possible to access it from a 
 ## Caveats
 
 * Omitting the "-t -i" flags will prohibit CTRL-C from terminating the server as normal. Without it, you will need to kill the ruby process externally to terminate the image. 
-* Using only the "-t" flag will allow the CTRL-C flag to escape the command that launched the server, but it will not terminate the image. Attempting to run the command again will yield and error because the port in question will already be bound to the prior invocation of docker. 
+* Using only the "-t" flag will allow the CTRL-C flag to escape the command that launched the server, but it will not terminate the image. Attempting to run the command again will yield an error because the port in question will already be bound to the prior invocation of docker. 
 
 [^1]: https://mmistakes.github.io/minimal-mistakes/
 [^2]: http://bundler.io/
