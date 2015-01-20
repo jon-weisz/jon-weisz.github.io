@@ -1,25 +1,23 @@
 ---
 layout: page
-title: About the Theme
-tags: [about, Jekyll, theme, responsive]
-modified: 2014-08-08T20:53:07.573882-04:00
-comments: true
+title: About Me
+tags: [about, Jekyll]
+comments: false
 image:
-  feature: sample-image-2.jpg
-  credit: WeGraphics
-  creditlink: http://wegraphics.net/downloads/free-ultimate-blurred-background-pack/
+  feature: about_me2.png
 ---
 
-Minimal Mistakes is responsive Jekyll theme with large featured images and solid typography. As the name implies the styling is fairly minimal to make it easier for you to build on top of.
+I'm a Ph.D. student at the Columbia Robotics Group, focusing on realtime user-in-the-loop realtime grasp planning through brain computer interfaces. Yeah, it's a bit of a mouth full. 
 
-## Minimal Mistakes is all about:
+I grew up in NYC, and am a proud alumni of [Stuyvesant High School](http://en.wikipedia.org/wiki/Stuyvesant_High_School), [Johns Hopkins University](http://www.jhunewsletter.com/2004/04/08/flamingos-bring-whimsy-to-upper-quad-20974/), [University of Southern California](http://bbdl.usc.edu/Francisco.php), and hopefully soon of Columbia University. 
 
-* Responsive templates. Looking good on mobile, tablet, and desktop.
-* Gracefully degrading in older browsers. Compatible with Internet Explorer 8+ and all modern browsers. 
-* Minimal embellishments -- content first.
-* Optional large feature images for posts and pages.
-* Simple and clear permalink structure.
-* [Custom 404 page](http://mmistakes.github.io/minimal-mistakes/404.html) to get you started.
-* Support for Disqus Comments
+I've been working with robots and assistive devices since my undergraduate design team days. I've worked with augmented reality projects designed to combat phantom limb pain as part of the Revolutionizing Prosthetics project with Dr. Reza Shadmehr. I helped build an early prototype of the foot controller that was made part of the APL Modular prosthetic foot. At USC, I helped build small devices to measure the motor impairment of individuals with cerebral palsy and osteoarthritis with Dr. Francisco Valero Cuevas. 
 
-<a markdown="0" href="{{ site.url }}/theme-setup" class="btn">Install Minimal Mistakes Theme</a>
+Here at Columbia, I've participated in the two major manipulation challenges of recent years with Dr. Peter Allen. I interned at SSRI, working with their ARM-S project team, and participated in the DARPA DRC competition with the Drexel lead Hubo team. I interned at Willow Garage with Dr. Matei Ciocarlie and the Robots for Humanity team.
+
+I'm pretty good with Matlab, Python, C++, ROS, and other normal roboticist stuff. 
+
+I also make a mean nut brown porter. 
+
+# [CV]
+<a markdown="0" href="{{sites.url}}/papers_files/JW_CV_2014.pdf" class="btn">Download PDF</a>
