@@ -4,13 +4,49 @@ layout: teaching_page
 author: jon_weisz_columbia
 ---
 
+<iframe width="854" height="510" src="https://www.youtube.com/embed/koPSfN06gqo#t=43
+" frameborder="0" allowfullscreen></iframe>
+
 ## Outline
+ * Errata
+ * Problem 2.27
  * Homework 1 submission guidelines
  * Java Collections
  * Gradle 101
  * Factorial, Precision, and Linked Lists
 
+##Errata
+  * Tower of Hanoi Big O - Not an arithmetic series
+    * T(N) = 2*T(N -1) + 1
+    * T(1) = 1
+    * T(2) = 3
+    * T(3) = 7
+    * T(4) = 15
 
+    * What is the pattern?  
+      * 2^N - 1  
+    * Inductive Proof  
+      * T(N) = 2*(2^(N-1) - 1) + 1  
+      *      = N^2 - 2 + 1  
+      *      = N^2 -1  
+
+  
+<br>
+<br>
+
+## Problem 2.27
+
+   * This problem is really hard.
+   * Don't spend forever on it. 
+   * Hints
+     * What do you learn about after each test?
+     * sqrt(N) time on a 2 dimensional problem implies some kind of "walking"
+     * Try drawing a graphical representation of what each test accomplishes
+     * Find a way to most effectively apply the test
+       * O(N) on N^2 items implies each test eliminates O(N) options.
+  
+<br>
+<br>
 
 # Homework 1 Submission Guidelines  
 
@@ -28,8 +64,9 @@ author: jon_weisz_columbia
   * Each directory should have a build.sh that runs the javac command to compile your program
   * The output of the build script for part 1 should be MakeChange or MakeChange.class, such that the grader can run $java MakeChange some integer to test part 1.
   * Similarly, the output of the build script for part 2 should be PermutationTest or PermutationTest.class such that the grader can run java PermutationTest to test part 2. 
-  * A sample build.sh will be available later today. 
-
+  * Part 2 also requires a run script, since including the graph package requires a adding the .jar file the class path
+  * See [here for a sample build script](http://www.cs.columbia.edu/~jweisz/W3137/homework_files/homework1_scripts/build.sh) and here for a [sample run script](http://www.cs.columbia.edu/~jweisz/W3137/homework_files/homework1_scripts/run.sh)
+<br>
 
 # Java Collections
   * There are many algorithms that require collections of objects.
@@ -61,7 +98,7 @@ author: jon_weisz_columbia
       * Keys must be a set, values have no (few) restrictions. 
     
 
-  * These categories describe the *interfaces* not the *implementatoins*
+  * These categories describe the *interfaces* not the *implementations*
     * Specialization determines implementation specific advantages
       * Array list vs linked list. 
     * Further specialization may add further interfaces.
@@ -92,7 +129,7 @@ author: jon_weisz_columbia
     classpath = files("classes/")  
     }  
 
-  * The [JavaCompile] task type defines most of what you'll need.
+  * The [JavaCompile](https://gradle.org/docs/current/dsl/org.gradle.api.tasks.compile.JavaCompile.html) task type defines most of what you'll need.
   * Conventions are very important. Learn to work with them.
 
 # Using Linked Lists for Fun and Profit
