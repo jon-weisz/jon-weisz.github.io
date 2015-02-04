@@ -27,8 +27,8 @@ author: jon_weisz_columbia
       * 2^N - 1  
     * Inductive Proof  
       * T(N) = 2*(2^(N-1) - 1) + 1  
-      *      = N^2 - 2 + 1  
-      *      = N^2 -1  
+      *      = 2^N - 2 + 1  
+      *      = 2^N - 1  
 
   
 <br>
@@ -66,7 +66,7 @@ author: jon_weisz_columbia
   * Similarly, the output of the build script for part 2 should be PermutationTest or PermutationTest.class such that the grader can run java PermutationTest to test part 2. 
   * Part 2 also requires a run script, since including the graph package requires a adding the .jar file the class path
   * See [here for a sample build script](http://www.cs.columbia.edu/~jweisz/W3137/homework_files/homework1_scripts/build.sh) and here for a [sample run script](http://www.cs.columbia.edu/~jweisz/W3137/homework_files/homework1_scripts/run.sh)
-<br>
+<br>	
 
 # Java Collections
   * There are many algorithms that require collections of objects.
