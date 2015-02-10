@@ -33,7 +33,6 @@ author: jon_weisz_columbia
  <br>
  
   * One advantage of the linked list implementation is that it is never "full".
-	* Can we fix the array implementation?
   * Instead of tracking the head and tail node, we can just track the tail node and make the tail nodes "next" point to the head.
     * This method uses a "circularly" linked list
 
@@ -45,7 +44,7 @@ author: jon_weisz_columbia
 
 
   * Advantages - Faster access, lower memory overhead
-  * Disadvantages - Fixed size.
+  * Disadvantages - Fixed size!
   * The queue "walks" within it's underlying array.
   * Notice that the array indices must be treated implicitly as a ring.
     * When queueing, tail = (tail + 1)%(Capacity)
@@ -55,17 +54,25 @@ author: jon_weisz_columbia
 
   * How do we overcome the size limitation?
     * Creating a new array and copying the data every time an object is added is very inefficient.
-	  * Every time an object is added size(queue) copies are done.
-	  * Adding N objects does O(N^2) work - Terrible.
+	* Every time an object is added size(queue) copies are done.
+	* Adding N objects does O(N^2) work - Terrible.
 	  <br>
 	  <br>
 	  <br>
 	  <br>
 	  <br>
 	  <br> 
-	  * Instead, if we double the array size each time, N objects must be added to force a copy.
-	    * Doing 2N additions, after the Nth addition no copying is done until the 2Nth addition.
-		* O(N) work instead of O(N^2)
+	* Instead, if we double the array size each time, N objects must be added to force a copy.
+	* Doing 2N additions, after the Nth addition no copying is done until the 2Nth addition.
+    * O(N) work instead of O(N^2)
+	* N objects inserted using 2N work - what is the big o per item?
+	<br>
+	<br>
+	  * Constant time
+	<br>
+	* This is called amortized analysis. 
+	  * Using naive analysis big O analysis, taking the most expensive branch each time, we still arrive at a big O of n^2.
+	  * However, we can clearly define how often the worst case scenario occurs, and establish a tighter, lower bound.
 
       <br>
 	  <br>
@@ -80,20 +87,40 @@ author: jon_weisz_columbia
 	<br>
 	<br>
 	<br>
-	  * What happens if you keep adding and removing at the boundary
+	  * What happens if you keep adding and removing at the boundary?
+	    * Consider the following implementation of a stack using a resizable array
+		![stack-array]({{site.url}}/images/stack-array.png)
 	    * Continuously doing n work to add and remove one object. O(n^2) for n adds and deletes. Again, terrible.
-        * This kind of behavior is called thrashing. it arises in other ways.
+        * This kind of behavior is called thrashing. It arises in many other ways.
         * Instead?
 		<br>
 		<br>
 		<br>
 		<br>
 		<br>
-		  * Shrink at capacity/4
-		
+		  * Shrink at capacity/4!
+		<br>
+		<br>
+    * Special concerns for a queue
+	  * The layout of a queue has special semantics.
+	    * The end wraps back to the beginning.
+		* Easiest implementation is to use create new array.
+		* Copy from head to tail using same modulo arithmetic. 
+  
+  * Applications
+    * Queues are often used for "fair" scheduling
+	  * Process scheduling
+	  * Print job scheduling
 
+    <br>
 
+    * Queues are also used for breadth first search
+	  * Start with a potential solution
+	  * Generate new candidates from solution
+	  * Visit each of these solutions and check if they meet the goal criterion
+	  * Repeat for each candidate until goal criterion is found, adding new candidates to the queue
+	  * [Maze Solving](mazesearch.txt)
+	
 
 [^1]: http://www.cs.usfca.edu/~galles/visualization/
-[^2]: ["Brown, B., (2001). Postfix Notation Mini-Lecture. Retrieved on 2015/2/4"](http://bbrown.spsu.edu/web_lectures/postfix/)
-[^3]: http://insecure.org/stf/smashstack.html
+
