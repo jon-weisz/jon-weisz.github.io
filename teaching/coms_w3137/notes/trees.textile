@@ -1,0 +1,297 @@
+---
+title: "Trees"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+<iframe src="//giphy.com/embed/1Qkd3km5eM6Yw?html5=true" width="480" height="667" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+
+h2. Outline
+
+* Introduction to Trees
+* General Trees
+* Binary Trees
+** Binary Tree Implementation
+** Useful Functions
+** Tree Traversal
+* Level Order Traversal (Breadth First Search)
+* Expression Trees
+
+h2. Introduction to Trees
+<div id="intro" class="section">
+
+* Up to now, we have discussed linear data structures. The only relationships that were directly supported were was first, last, next, and previous. 
+* Trees have a hierarchical, two dimensional representation. 
+
+h3. Terminology
+
+!{{site.url}}/teaching/coms_w3137/images/tree_terminology.jpg! 
+* Each node has a depth
+** How many edges there are between the current node and the parent
+* height is the opposite of depth
+** height = MaxDepth - depth 
+
+h3. More relationships
+
+- Path := A sequence of nodes N ~1~ to N ~k~, where N ~i~ is the parent of node N ~i+1~.
+- Length := The length of a path is k-1, one less than the number of nodes in the path. Every node has a path of length 0 to itself.     
+- Ancestor := Any node on the path from some node N to the root is an ancestor of N. 
+- Descendent := Any node for which node N is an ancestor is a descendent of node N. 
+
+h3. Important invariants
+* A node has a single parent
+* A node may have multiple children
+* A node must have a path to the root, unless it is the root.
+* A tree is recursively defined.
+* Each node in a tree should be a the root of its own tree.
+* A single node is a valid tree. 
+* Introducing more constraints defines the tree.
+* Bound number of child nodes
+* Add rules for inserting child nodes. 
+* Trees can be divided into related groups where the invariant is not followed called "forests" or "orchards"
+
+</div>
+
+h2. General Trees
+
+How can we construct a data structure that supports an arbitrary tree?
+
+<a name="t1" href="#t1" onclick="toggle_visibility('gentrees1');" style="">+</a> 
+
+p(hints#gentrees1){display:none}. Use Linked Lists
+
+<a name="t2" href="#t2" onclick="toggle_visibility('gentrees2');" style="">+</a>     
+
+<div class="hints" id="gentrees2" style="display:none">
+
+bc. public class TreeNode {
+Object element;
+TreeNode firstChild;
+TreeNode nextSibling;
+}
+
+* We can encode any general tree as a special kind of two child (binary) tree.
+* The 2 child pointers are FirstChild and NextSibling. 
+* Each sibling is part of a linked list which can be of arbitrary length
+* Can be extended to a "forest" or "orchard" or related trees by using the root nodes 'siblings'
+* If the form of the tree is constrained, some more efficient representation can be found. 
+</div>
+
+h2. Binary Trees
+
+- binary tree := a tree where each node has at most two children. 
+- full binary tree := one in which every node has 0 or 2 children
+- complete binary tree:= one in which the leaves are all at the same height, and all nodes on the bottom level are as far "left" as possible. 
+- perfect binary tree := A tree in which all leaves have the same depth and all internal nodes have 2 children.
+
+!{{site.url}}/teaching/coms_w3137/images/tree_types.png! 
+
+<notextile>
+<br>
+</notextile>
+
+!{{site.url}}/teaching/coms_w3137/images/perfect_tree.png! 
+
+* Number of interior leaf nodes at height N is 2^N-1^ 
+* The number of nodes in the interior is equal to the number of leaves of a perfect tree - 1.
+* The cost of storing N objects in a tree is O(2N) = O(N)
+
+h3. Proof that the total number of nodes in a perfect tree of height K is 2 ^K+1^ - 1
+
+This is a proof by induction
+# Basis. For a tree of height K = 0, we have 1 node. Thus, 2 ^K+1^ - 1 = 1, and the base case is true. 
+# Inductive Step. 
+** To show the inductive step, we must show that the number of nodes in a perfect tree of height K+1 is 2 ^(K+1)+1^ - 1. 
+** A perfect tree of height K+1 has two subtrees, each of size 2 ^K+1^ - 1. 
+** The total number of nodes in those trees is 2*(2 ^(K+1)^ -1) for each subtree + 1 node for the root,  which is obviously 2 ^(K+1)+1)^ - 2 + 1 = 2 ^(K+1)+1^ - 1.
+
+h3. Implementation
+
+bc. class MyBinaryNode {
+    MyBinaryNode( Object theElement ,MyBinaryNode lt, MyBinaryNode rt )
+    {
+	element = theElement;
+	left = lt;
+	right = rt;
+    }
+    Object element; // The data in the node
+    MyBinaryNode left; // Left child
+    MyBinaryNode right; // Right child
+}
+
+
+h3. Useful Functions
+<a name="usefulfunctions" href="#usefulfunctions"/>
+
+h4. Count Nodes
+
+bc. public static int countnodes(MyBinaryNode t)
+{
+	if(t==null)return 0;
+	else return(1+countnodes(t.left)+countnodes(t.right));
+}
+
+h4. Get Tree Height
+
+bc. public static int treeHeight(MyBinaryNode t)
+{
+	if(t==null) return -1; else return(1 + max(treeHeight(t.left),
+	treeHeight(t.right)));
+}
+public static int max(int a,int b)
+{
+	if(a>b) return a; else return b;
+}
+
+h4. Print tree as tree
+
+bc. public static void printTree( MyBinaryNode t , int indent)
+{
+	if( t != null )
+	{
+		printTree( t.right, indent + 3 );
+			   for(int i=0;i<indent;i++)
+			   System.out.print(" ");
+			   System.out.println( t.element );
+			   printTree( t.left , indent + 3 );
+	}
+}
+
+This code follows the strategy that follows the left node until it hits the root, then it processes the current node, and then it follows the right node. This traversal strategy is called "in order traversal".
+
+h4. Internal Path Length
+
+* The internal path length of a tree is the sum of all possible node depths. 
+* This is the total of all possible path lengths beginning at the root node. 
+* For a perfect binary tree, the IPL is the sum from i=0 to the height of the tree of i*2 ^i^.
+** This is because at each height there are 2 ^i^ nodes, each with a height of i.
+* Trees that are not perfect but have the same number of nodes will have a higher IPL. 
+** Some nodes must be at a greater depth than necessary.
+* One measure of the efficiency of searching the tree is the IPL/N
+** Average search time assuming each node is equally likely to be the target of the search.  
+
+bc. public static int ipl(MyBinaryNode t, int level)
+    {
+        if(t==null) return 0;
+        else {
+            return(ipl(t.left, level+1) + level+ ipl(t.right,level+1));
+        }
+    }
+
+h3. Tree Traversal
+
+* There are three basic strategies for tree traversal 
+## Pre order - Visit the root, then visit the left child, then visit the right child. 
+## In Order - Visit the left subtree, then visit the root, then visit the right subtree. 
+## Post Order - Visit the left subtree, then visit the right subtree, then visit the root. 
+
+bc. public static void inOrder(MyBinaryNode t){
+    if (t!=null){
+         inOrder(t.left);
+         System.out.print(t.element + " ");
+         inOrder(t.right);
+    }
+}
+
+bc. public static void preOrder(MyBinaryNode t){
+    if (t!=null){
+        System.out.print(t.element + " ");
+        preOrder(t.left);
+        preOrder(t.right);
+    }
+}
+
+bc. public static void postOrder(MyBinaryNode t){
+    if (t!=null){
+        postOrder(t.left);
+	postOrder(t.right);
+	System.out.print(t.element + " ");
+    }
+}
+
+
+h2. Level Order Traversal (Breadth First Search)
+
+* An alternate strategy is to visit all of the nodes at a certain height before proceeding to their children. 
+* This is the equivalent of breadth first search
+** the children of each node are the possible states reachable from a given node. 
+* As we've seen before, breadth first search requires a second data structure, a queue. 
+
+bc. void LevelOrderTraversal(BinaryNode t) {
+    EnQueue node t into a Queue Q - check to make sure t not null
+    while (Q not empty) {
+    nextnode= DeQueue(Q);
+        if (nextnode != null) {
+            Visit(nextnode);
+            EnQueue nextnode.left in Q; // insert left link at rear
+            EnQueue nextnode.right in Q; // insert right link on rear of Q
+           }
+      }
+}
+
+h2. Expression Trees
+
+* Postfix notation is great for processing expressions in a single threaded program, but what if it was multithreaded?
+** Or if we wanted to do some kind of type checking?
+* Given a set a set of binary operators, a binary tree is a natural option
+** All operations at the same level can be parallelized
+** Operations processed from bottom up. 
+** All symbols are leaf nodes
+** All operators are internal nodes. 
+
+!{{site.url}}/teaching/coms_w3137/images/expressionTree.gif!
+
+
+* How do we create an expression tree? 
+
+ <a name="expressiontree" href="#expressiontree" onclick="toggle_visibility('expressiontree1');">+</a>
+
+<div class="hints" id="expressiontree1" style="display:none">
+
+* Preprocess the expression.
+
+</div>
+
+ <a name="expressiontree2" href="#expressiontree2" onclick="toggle_visibility('expressiontree2');">+</a>
+
+<div class="hints" id="expressiontree2" style="display:none">
+
+# Build a postfix expression on a stack
+# Pop a node off of the stack
+# Set the root node as the current node. 
+# For each element from right to left, 
+## if the current node cannot have more children, find the first parent of the node that can have more children by following the parent node. 
+## otherwise, insert the new node into the current node as it's left most child. 
+## set the new node as the current node. 
+
+* Given a binary expression tree, it is parsed using post order traversal like this: 
+
+bc. double EvalTree( EBinaryNode T ){
+    if( T == NULL) return 0;
+   else if( T.nodetype.equals(‘‘OPERAND’’)) return ((double)T.element);
+   else { // must be an operator...
+       Operate = (char)T.element;
+       Operand1 = EvalTree( T.left);
+       Operand2 = EvalTree( T.right);
+       return( ApplyOperator(Operand1, Operate,Operand2));
+    }
+}
+
+
+</div>
