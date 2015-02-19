@@ -1,0 +1,206 @@
+---
+title: "Trees"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+<notextile>
+<style>
+.hints{
+  display:none;
+}
+</style>
+</notextile>
+
+!{{site.url}}/teaching/coms_w3137/images/head_tree.jpg! 
+
+From here on out, our trees get smarter. 
+
+h1. Binary Search Trees
+* A binary search tree is a binary tree with the added constraint that for every node in the tree, getTreeMax(node.leftChild) < node.value and getMinTree(node.rightChild) > node.value.
+* Another way of saying this is that each node partitions its left and right subtrees.
+* Searching a binary search tree
+
+{% highlight java %}
+
+bc. private BinaryNode<AnyType> findVal( AnyType x, BinaryNode<AnyType> t)
+    {
+	// If the end an uninitialized node is reached, we don't have the value. 
+	if( t == null ) 
+	    return t;
+	// Otherwise, compare this element to the desired value. 
+	int compareResult = x.compareTo( t.element );
+	// return this node if it is equal
+	if ( !compareResult )
+	   return t;
+	// otherwise follow the next node. 
+	if( compareResult < 0 )
+	    return findVal(x, t.left);
+	else
+	    return findVal(x, t.right); 
+    }
+
+{% endhighlight %}
+
+** What is the simplest way of constructing a binary search tree from an array? <a href="#binarysearchtreesearch1" onclick="toggle_visibility('binarysearchtreesearch1');">+</a>
+
+<notextile>
+<div class="hints" id="binarysearchtreesearch1">
+<notextile>
+
+{% highlight java %}
+
+bc. private BinaryNode<AnyType> insert( AnyType x, BinaryNode<AnyType> t )
+    {
+	if( t == null )
+	    return new BinaryNode<AnyType>( x, null, null );
+	int compareResult = x.compareTo( t.element );
+	if( compareResult < 0 )
+	    t.left = insert( x, t.left );
+	else if( compareResult > 0 )
+	    t.right = insert( x, t.right );
+	else
+		; // Duplicate; do nothing
+	return t;
+}
+
+
+{% endhighlight %}
+
+<notextile>
+</div>
+</notextile>
+
+** What is the worst case internal path length(IPL)? <a href="#binarysearchtreesearch2" onclick="toggle_visibility('binarysearchtreesearch2');">+</a>
+
+<div class="hints" id="binarysearchtreesearch2" style="display:none">
+
+!{{site.url}}/teaching/coms_w3137/images/bst_worst_case.gif! 
+
+</div>
+
+
+** What starting array generates this worst case?<a href="#binarysearchtreesearch3" onclick="toggle_visibility('binarysearchtreesearch3');">+</a>
+
+
+<div class="hints" id="binarysearchtreesearch3" style="display:none">
+
+** A sorted array! 
+** How could we do better inserting a sorted array? Insert it as though splitting it for merge sort. 
+    <iframe src="http://www.cs.usfca.edu/~galles/visualization/BST.html" width="600" height="600"></iframe>
+
+
+</div>
+
+* What is the Big O for search? <a href="#binarysearchtreesearch4" onclick="toggle_visibility('binarysearchtreesearch4');">+</a>
+
+<div class="hints" id="binarysearchtreesearch4" style="display:none">
+<ul>
+
+** The worst case is tree is a line.
+*** Big O linear search time
+** Best tree search time
+*** Log(n)
+
+</ul>
+</div>
+
+* More simple operations:
+** Find minimum?
+*** Go all the way left until you hit a null
+** Find maximum?
+*** Go all the way right until you hit a null
+** Find median of perfect tree? (Trick question)<a href="#binarysearchtreesearch5" onclick="toggle_visibility('binarysearchtreesearch5');">+</a>
+*** <span class="hints" id="binarysearchtreesearch5"> For an odd number of items, it is the top number. What is about an odd number?<a href="#binarysearchtreesearch6" onclick="toggle_visibility('binarysearchtreesearch6');">+</a>  </span>
+***  <span class="hints" id="binarysearchtreesearch6"> The average of the left most item of the right subtree from the root, or the average of the right most element of the left subtree from the root and the root. </span>
+
+* Most complex operation?
+** Removal <a href="#binarysearchtreesearch7" onclick="toggle_visibility('binarysearchtreesearch7');">+</a>
+
+
+<notextile>
+<div class="hints" id="binarysearchtreesearch7">
+<notextile>
+
+{% highlight java %}
+
+bc. private BinaryNode<AnyType> insert( AnyType x, BinaryNode<AnyType> t )
+    {
+	if( t == null )
+	    return new BinaryNode<AnyType>( x, null, null );
+	int compareResult = x.compareTo( t.element );
+	if( compareResult < 0 )
+	    t.left = insert( x, t.left );
+	else if( compareResult > 0 )
+	    t.right = insert( x, t.right );
+	else
+		; // Duplicate; do nothing
+	return t;
+}
+
+
+{% endhighlight %}
+
+<notextile>
+</div>
+</notextile>
+
+* Efficiency <a href="#binarysearchtreesearch8" onclick="toggle_visibility('binarysearchtreesearch8');">+</a>
+
+<notextile>
+<div class="hints" id="binarysearchtreesearch8">
+<ul>
+</notextile>
+
+
+** Best case search log(N)
+** Worst case search log(N)
+** Typical case seach
+*** What about something between the worst and best cases? 
+*** Let’s assume that the “split” in the data occurs each time about 3/4 of the way. 
+*** So, for example, the root element will split the N data items into 2 subtrees, one with 3/4 N nodes, the other with 1/4 N nodes. 
+*** Lets assume that at each successive split, this ratio holds. We put 1/4 of the elements into the left tree, and 3/4 in the right, all the way down to the leaf nodes. 
+
+pre. You can envision a tree that looks like this:
+           ROOT
+         /     \
+        /       \
+      N/4       3N/4
+      / \        / \
+     /   \      /   \
+   N/16 3N/16 3N/16 9N/16
+
+
+** What's the big-O analysis of this case?
+*** The largest subtree of this tree is the rightmost, And the rightmost subtree has exactly (3/4) ^d^ nodes. 
+*** The node is found when (3/4) ^d^ N < 1.
+*** The longest path is therefore d*log(3/4) + log(N) < Log(1). Since Log(3/4) ~ -0.4 and d > 2.5Log(N), which is still log(N).
+*** This shows that even in suboptimal splits, search is still roughly log(N).  
+
+<notextile>
+</ul>
+</div>
+</notextile>
+
+
+h2. Homework 2 submission guidelines
+* Submission wil happen through Github
+* "Written" homework should also be submitted through github
+** Either type it up, or try a cell phone document scanner
+*** Evernote and Google Drive have one. 
+*** Here is a list of other <a href="http://www.itworld.com/article/2833356/8-best-scanner-apps-for-ios-and-android.html">apps</a> 
+*** The computer lab has a scanner
+
