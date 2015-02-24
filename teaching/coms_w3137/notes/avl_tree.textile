@@ -1,0 +1,103 @@
+---
+title: "AVL Trees"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+<notextile>
+<style>
+.hints{
+  display:none;
+}
+</style>
+</notextile>
+
+<iframe width="1280" height="750" src="https://www.youtube.com/embed/p9Resi_2qQ0#t=5s" frameborder="0" allowfullscreen></iframe>
+
+Tree SMASH!
+
+h1. Overview
+* Review of binary tree deletion.
+* Introduction to balanced binary trees
+** The material covered in this lecture somewhat complicated. Revisit the animations later.
+
+<br>
+<br>
+
+h1. Balanced Binary Trees
+
+!http://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Unbalanced_binary_tree.svg/251px-Unbalanced_binary_tree.svg.png!
+IPL 3.27
+!http://upload.wikimedia.org/wikipedia/commons/thumb/0/06/AVLtreef.svg/251px-AVLtreef.svg.png!
+IPL 3
+
+* A binary search tree can always be rearranged to place a ceiling on the difference between height(root.leftChild) and height(root.rightChild).
+* A binary tree where the maximum distance is 1 for all subtrees is called "Balanced".
+** Even within that limitation, there is more and less balanced. count(root.leftChild) - count(root.rightChild) may be > 1. 
+* A balanced binary tree has some major advantages.
+** Maintains O(log(N)) worst case search time guarantee, as opposed to O(N).
+* A "self-balancing" tree is one which has added rules for insertion and deletion that ensure that the tree is always balanced after each operation. 
+** Can be designed to also have O(log(N)) insertion and deletion.
+*** This implies O(log(N)) rebalancing algorithm!
+** It also has some serious disadvantages
+*** Complexity! 
+
+<br>
+
+* There are two major implementation of "self" balancing trees.
+** AVL trees named after their inventors
+** Red-Black (RB) trees named after the checkerboard pattern used to illustrate their operation. 
+** AVL Trees are a little simpler, so that's the one that we will introduce. Their balancing is more rigorous and happens more often. 
+** RB trees are used in some common libraries (Linux kernel, C++ Standard Template Library) 
+*** std::map is a binary tree of sorted keys, where each node stores the value object). Balancing happens less often
+** RB trees have slightly faster insertion and removal, but slightly slower search. 
+
+<br>
+
+h2. AVL Trees
+* The basis of the AVL tree is the _rotation operation_ to maintain balance 
+* If the tree was an AVL tree, and an operation has "unbalanced it", one child node differs from its sibling by 2.
+** Solution - Decrease taller child height by 1, increase short child height by 1. Now they are equal!
+!http://upload.wikimedia.org/wikipedia/commons/thumb/4/43/BinaryTreeRotations.svg/405px-BinaryTreeRotations.svg.png![1]
+<br>
+* Why is it called a rotation? Because the subtree appears to "roll" so that one of the child nodes becomes the parent. 
+** "Cool animation":http://visualgo.net/bst.html 
+
+<br>
+<br>
+
+h3. From the "PDF Notes":http://www.cs.columbia.edu/~jweisz/W3137/NOTES/avltrees_with_GUI.pdf 
+* AVL Trees do some additional bookkeeping, storing the height of the left and right subtrees 
+**This is purely an optimization, as it can always be derived.
+* The AVL condition doesn't guarantee _complete_ or _perfect_ trees
+** But we can prove that the height is still O(log(N))
+*** See PDF for proof
+
+<br>
+
+h3. Rotations
+* Two types of rotations - single and double. 
+** Single rotations resolve left left or right right situations.
+** Double rotations resolve left right or right left
+*** First rotate lower node to make it single rotation case. Then resolve single rotation case. 
+!http://upload.wikimedia.org/wikipedia/commons/c/c4/Tree_Rebalancing.gif!
+
+<br>
+
+h3. Insertion and Deletion
+* Basically normal insertion and deletion, except with rebalancing afterwards.
+
+fn1. "BinaryTreeRotations by Josell7 - Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons":http://commons.wikimedia.org/wiki/File:BinaryTreeRotations.svg
