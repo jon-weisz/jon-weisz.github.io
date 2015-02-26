@@ -74,6 +74,10 @@ h2. AVL Trees
 !http://upload.wikimedia.org/wikipedia/commons/thumb/4/43/BinaryTreeRotations.svg/405px-BinaryTreeRotations.svg.png![1]
 <br>
 * Why is it called a rotation? Because the subtree appears to "roll" so that one of the child nodes becomes the parent. 
+** But what if _B_ is taller than _a_ ?
+*** This can only happen if _B_ was added to or _a_ was removed from (why?) 
+*** Solution: double rotation
+**** Rotate right child first, then rotate root! 
 ** "Cool animation":http://visualgo.net/bst.html 
 
 <br>
@@ -81,7 +85,7 @@ h2. AVL Trees
 
 h3. From the "PDF Notes":http://www.cs.columbia.edu/~jweisz/W3137/NOTES/avltrees_with_GUI.pdf 
 * AVL Trees do some additional bookkeeping, storing the height of the left and right subtrees 
-**This is purely an optimization, as it can always be derived.
+** This is purely an optimization, as it can always be derived.
 * The AVL condition doesn't guarantee _complete_ or _perfect_ trees
 ** But we can prove that the height is still O(log(N))
 *** See PDF for proof

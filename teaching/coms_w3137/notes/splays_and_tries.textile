@@ -1,0 +1,104 @@
+---
+title: "Splay Trees and Tries"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+<notextile>
+<style>
+.hints{
+  display:none;
+}
+</style>
+</notextile>
+
+!>{{site.url}}/teaching/coms_w3137/images/zigzag_tree.jpg! 
+
+
+h1. Splay Trees
+
+* Data access patterns are rarely random, and rarely evenly distributed.
+* Keeping the IPL as low as possible is not necessarily as important as faster access to more common elements. 
+* How can you figure out which elements are the most important, in a generic case?
+** Move recently accessed elements up the tree.
+** How can you keep the tree a BST?
+
+<br>
+ 
+* Splay trees are a simple binary search tree that optimizes access to most recently accessed elements. 
+** Uses rotations like an AVL tree, but for a different purpose. 
+** May not be possible to have a balanced tree that also keeps most recent elements fast to access.
+** Such a tree is not self balancing, but self adjusting.
+** Unlike AVL trees, rebalancing happens on find as well as insert and remove. 
+
+h2. Zigs and Zags
+
+* The algorithm is described in terms of "zigs" (left child) and "zags" (right child).
+* The most recently accessed element bubbles up the tree using a series of primitive movements called "splays":http://en.wikipedia.org/wiki/Splay_tree#Splaying.
+* These tend to shorten the tree while bringing the accessed element up. 
+** Roughly halves the length of the access path. 
+* Called splays because they tend to form "leaning" structures that are spread out, but not balanced. 
+* https://www.cs.usfca.edu/~galles/visualization/SplayTree.html
+* Insertion is just like BST insertion followed by splaying the inserted element to the root
+* Deletion is just like BST deletion, followed by splaying the parent of the deleted element to the root. 
+
+
+h2. Efficiency
+
+* What is the efficiency of this tree?
+** No guarantees on tree height!
+** Worst case is O(N) just like the binary tree 
+** Average case is O(log(N))
+** Many accesses will be O(1)
+
+
+h1. Tries (Radix trees, Prefix Trees)
+ 
+!>{{site.url}}/teaching/coms_w3137/images/dictionary_tree.jpg!
+* Tries are like looking things up in a dictionary.
+** Key value lookup
+** More than two children (multiway)
+** Things with the same prefix are found by following the same node.
+* Another way to think of this is that it's like compressing levels of a tree with only one child into single layer. 
+* The children of a trie storing words differ only in letters after their shared prefix. 
+** For English words, this means a trie node may have 26 children (although only the root node ever will).
+** Where do you store the value?
+** In a node that represents the terminal string
+*** This implies that we need an extra slot for terminal points, and an extra symbol that denotes following that child.
+
+<br>
+
+* Tries are not balanced.
+** But their imbalance cannot be that bad - long linear runs are compressed. 
+* Tries tend to be sparse
+** Each node has far fewer than its maximal number of children
+* The node must store it's prefix, and its children.
+* Some tries will consume a fixed size prefix, others will consume an arbitrary length prefix. 
+* Insertion is relatively simple
+** It may differ at a level that used to be compressed
+** The level must be split. 
+** All existing children go in a new node with the rest of the old prefix.  
+* Deleting an entry can create a situation where levels can be joined, but cannot influence "correctness", as long as we annotate the existing node as "invalid" in some way, and clean it up later. 
+*** This strategy is called lazy deletion. If all entries which share this nodes prefix are also removed, it is easy to delete the level above 
+* What are the actual cases for deletion?
+** Parent is left with a single child
+*** Further compression is possible. Add the prefix for this node to the child, point the grandparent to the child, delete the node. 
+** Parent is left with multiple children.
+*** Delete the node, do nothing further
+** If the parent is left with no children, delete it, analyze parent. 
+
+
