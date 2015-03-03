@@ -1,0 +1,180 @@
+---
+title: "Priority Queues and Heaps"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+!{{site.url}}/teaching/coms_w3137/images/balloon-tree.jpg![1]
+
+h2. Outline
+* Homework 3
+* Midterm Prep
+* Priority Queues
+** Heaps
+*** Heap implementations
+*** Cost
+* Treaps
+
+
+<br>
+<br>
+<br>
+ 
+h2. Homework 3
+* Homework 3 will be divided into two parts
+** Written section due before the midterm
+** Programming section due after. 
+** Written section answers will be reviewed in class on due date to prep for midterm. 
+* Covers up to tree rotations
+* Midterm covers up to next lecture. 
+** FYI: In previous semesters, the homework has only covered up to BSTs
+
+
+<br>
+<br>
+<br>
+
+
+h2. Midterm Prep
+* Midterm practice problems will be given out 3/5.
+* They will be reviewed on 3/10 along with the homework 3. 
+
+<br>
+<br>
+<br>
+
+h2. Priority Queues
+* The Priority Queue ADT supports two operations
+** Insert item
+** Remove highest priority item (Usually returns the value or pointer to said item)
+*** Highest priority may mean lowest OR highest value, but by convention it is usually the lowest.
+
+<br>
+
+h3. What is this for?
+* Importance based scheduling
+** For example, grasp planning!
+*** Candidates can be generated through iterative search based optimization (cheap, but not parallellizable)
+*** Many, candidates (~10,000)
+*** Reachability checking is a whole seperate planning problem (Expensive, but parallelizable)
+*** Use a heap to get next candidate!
+
+h3. Simple implementations:
+* Store items in array
+** O(1) insert, O(N) erase? 
+*** Pushing new items on the back. 
+*** Search the array linearly to find lowest value
+** O(N) insert, O(1) erase?
+*** insertion sort to insert
+*** retrieve first element to erase. 
+
+<br>
+<br>
+
+* Can we do better? YES
+
+h2. Heaps 
+* Binary tree based data structure with the following constraints:
+** The tree is _complete_
+** For each node, the child elements of the node must have higher priority than the parent. 
+*** Min-Heaps in particular, Max heaps reverse this.
+
+
+h3. Heap Lookahead
+* Are these conditions sufficient to assert that the root node must have the lowest priority?
+* Assume you start with a MinHeap. How can you remove a root node and restore the MinHeap property?
+* Assume you start with a MinHeap. How can you insert a new node in O(log(N)) time?
+** Remember that it is a perfect tree.
+
+<br>
+<br>
+
+h3. Heap manipulations
+* Heap manipulations involve a lot of "bubbling" up or down. 
+* http://visualgo.net/heap.html
+* As you can see, we take advantage of the "complete" nature of the tree
+** Insertion starts with the new node in the next position in the "complete tree"
+*** Bubble up swapping with parent if heap property requires it.
+** Deletion removes the top node, replaces it with last position in complete tree, and bubbles down to restore heap constraint
+*** O(log(N)) insertion, O(1) removal, followed by O(log(N)) rearranging. 
+
+<br>
+<br>
+
+
+h3. More fun with Heaps!
+* Can we use this for for more efficient search?
+* Can we use it for more efficient sort?
+
+<br>
+
+h4. Heap Sort!
+* Insert everything in to a heap
+* Pop minimal value until it is empty. 
+
+<br>
+<br>
+
+h2. Heap Implementation
+
+h3. Base Datastructure
+* The tree implementation involves lots of rearranging
+* Continuous reparenting the nodes is expensive
+* It is also unnecessary! 
+** Recall the wierd property of "completeness"
+** The indices used to address the nodes are "compact" in a complete tree. 
+** All manipulations only swap parent with child. 
+** The array implementation is very efficient for this!
+
+<br>
+
+h3. Array Implementation
+* For each node with index _i_
+** Its child indices are _2*i_ and _2*i+1_.
+** Its parent indices are floor(_i/2_)
+** Use fixed size array or dynamically double resizing vector. 
+
+h4. Optimization Opportunities
+* How can we find last child? [remember compactness]
+* Checking if a child is a leaf? [remember compactness] 
+* When can we stop pushing a hole down? ...
+
+h4. Answers
+* Last child is at the num_nodes index
+* A child is a leaf if it is in the second half of the array.
+* You can't push the hole past a leaf node!
+** Stop at num_nodes/2
+
+h3. Heap construction
+* For full analysis, see PDF in notes.
+* Starting from the bottom of the heap, we can "bubble down" each node to its appropriate place
+* At bottom level (k), 0 bubbles, 2 ^k^ nodes. 
+* At k -1 level, at most 1 bubble, 2 ^k-1^ nodes.
+* From here, taking the sum over all levels and then simplifying, we arrive at 2 ^k^ -k + 1.
+* Since the number of nodes is N = 2 ^k^ -1, this is O(N).
+
+* So, why isn't heap sort O(N)?
+** The expensive part is the restoration of the heap property after each deletion. 
+
+
+h2. Treaps
+* We are only going to look at these things at a 1000 foot level for now.
+** They are interesting, but the details will not be on the midterm. 
+* Balanced BST based on heaps
+* Add a priority field to the BST
+* The priority is used to determine the level at which the tree resides
+* Randomly assign priorities
+* To insert, do it as a normal BST
+** Rotate tree to maintain priority heap constraint
+* To delete, make the priority the highest possible. 
+** Rotate down the tree until it is a leaf node
+** Then just delete it.
+* Since the priorities are randomly distributed, they will randomly rebalance the tree, leading to log(N) average behavior. 
+
+
+
+
+
+
+
+fn1. http://www.sarcastechdesigns.com/alex/portfolio 
