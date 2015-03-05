@@ -1,0 +1,520 @@
+---
+title: "Huffman code and Midterm Review"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+<notextile>
+<style>
+.hints{
+  display:none;
+}
+</style>
+</notextile>
+
+
+h1. Huffman Codes
+h2. Review of Tries
+* A simple, vanilla trie is a:
+** multiway tree
+**  where the key to lookup a node is can be broken down into pieces
+** each of which is used to select the path to follow from a particular node. 
+
+* The simplest trie is a binary trie
+!>{{site.url}}/teaching/coms_w3137/images/binary_trie.gif!
+
+h2. Compressed Tries
+* In a binary trie, at each level the index in the key represents the child picked at that level.
+
+* If we were writing a list of N integers from 0-7 to a file using only the binary keys in the trie, the length of the file would 3*N
+
+* !>{{site.url}}/teaching/coms_w3137/images/sparse_binary_trie.gif!
+
+* If our list of integers did not contain any 1s, 2s, or 3s, a three binary digit key beginning with 0 would unambiguously define the the digit as 0. 
+
+* !>{{site.url}}/teaching/coms_w3137/images/compressed_binary_trie.gif!
+
+* This trie representation is an equally valid representation of the data. Using these keys, the length of the file would be 1*(number of 0s) + 3*(number of other digits)
+
+!>{{site.url}}/teaching/coms_w3137/images/sparse_redundant_trie.gif!
+
+* In this trie, we only have 4 possible values. 
+* We could represent them with a key of length 2 instead of 3.
+ 
+!>{{site.url}}/teaching/coms_w3137/images/compressed_redundant_trie.gif!
+
+* By compressing the unambiguous paths, we wind up with some paths that are length 1. 
+** If 0s are dramatically more common than the other numbers, we may get significant space savings.
+** To do this, we need to use a variable length key, with the worst case key being longer than the minimal key length for the fixed length key. 
+* This implies that there is a tradeoff between maximal variable key length, choice of mapping from key to value, and frequency of value.
+* There must be some optimal key length/mapping pair that minimizes the file length.
+
+h2. Finding Optimal Codes
+* Ascii has about 100 characters
+** Minimal binary representation of 7 characters (2^7)
+*** An extra bit is usually used as a "parity" bit. [For error checking purposes]
+** Here is an example dataset
+
+!>{{site.url}}/teaching/coms_w3137/images/huffman_dataset.png!
+
+* Given 7 symbols, a fixed width key of length three is necessary. 
+
+!>{{site.url}}/teaching/coms_w3137/images/huffman_tree.png!
+
+* Here is the optimal tree
+
+!>{{site.url}}/teaching/coms_w3137/images/huffman_optimal_tree.png!
+
+** 15% less total length!
+
+* How can we determine the optimal tree?
+** Greedily!
+h3. Greedy Huffman Optimization algorithm
+* Greedy optimization means that each decision can be made using only the current state, without looking forward.
+
+<iframe width="1280" height="750" src="http://algoviz.org/OpenDSA/AV/Binary/huffmanBuildAV.html" frameborder="0" allowfullscreen></iframe>
+
+
+
+* In this case, divide the tree into its component nodes, each having a weight equal to its frequency. Treat each one as the base of a tree
+* Then while there is more than one tree
+** Create a new root node
+** Make the two smallest trees subtrees of the root node (order doesn't matter)
+** Set weight of new tree equal to sum of two subtrees. 
+
+* Note that in this case, you will be finding the minimum element a lot
+** This is a great use case for a heap for larger problems.  
+
+
+
+h1. Midterm Questions
+* Brush up on your definitions.  Know them thoroughly. 
+
+* We have mentioned sorting, but other than binary sort, we haven't really covered it. They will be covered in depth in the second half of the class. 
+* Treaps will not be on the exam
+
+h2. Problems
+
+<a name="p1" href="#p1" onclick="toggle_visibility('p1div1');">1 - Click to show</a>
+
+<div id="p1div1" class="hints">
+
+{% highlight java %}
+
+// Recursive solution
+bc. public Node reverse(Node p)
+{
+  // start with the trivial base cases 
+  // empty list -- do nothing
+  if (p == null)
+     return p;
+
+  // End of list - Great! return the tail. 
+  if (p.getNext() == null)
+     return p;
+
+  // Do some stuff maybe?
+  
+  // What do we recurse on?  The next node  
+  Node l = reverse(p.getNext())
+   
+ // Do some other stuff maybe?
+
+  // We always want to return the tail node.
+  return l;
+}
+
+{% endhighlight %}
+
+</div>
+
+
+* Now we have a basic outline of the solution with all of the base cases and return paths outlined. 
+* But we haven't done the book keeping to reverse the links.
+
+* What are the special cases for the link reversal?
+** Tail node is handled by base case.
+** Head node?
+
+<a name="p1" href="#p1" onclick="toggle_visibility('p1div2');">1 - continued - Click to show</a>
+
+<div id="p1div2" class="hints">
+
+{% highlight java %}
+
+// Recursive solution
+bc. public Node reverse(Node p)
+{
+  // start with the trivial base cases 
+  // empty list -- do nothing
+  if (p == null)
+     return p;
+
+  // End of list - Great! return the tail. 
+  if (p.getNext() == null)
+     return p;
+
+  Node n = p.getNext();
+
+  // Detatch current next -- handles head case
+  p.setNext(null)  
+
+  // What do we recurse on?  The next node  
+  Node l = reverse(n)
+   
+   // reverse old link between p and n
+   n.setNext(p)
+
+  // We always want to return the tail node.
+  return l;
+}
+
+{% endhighlight %}
+
+</div>
+
+Notice that if node n is defined after the recursion, or if the next of n is set before the recursion, this algorithm breaks. 
+
+Also, the head node is never the 'next' of any node on the way down the call stack. It is never assigned to n, so it never gets it's next reassigned, and it remains null. 
+
+<a name="p2" href="#p2" onclick="toggle_visibility('p2div1');">2 - Click to show</a>
+
+<div id="p2div1" class="hints">
+
+{% highlight java %}
+
+// Recursive solution
+bc. public Boolean sameStack(stack s1, stack s2)
+{
+  // start with the trivial base cases 
+  // empty stacks -- return TRUE!
+  if (s1.isEmpty() && s2.isEmpty())
+     return TRUE;
+     
+  // Only one empty stack - return FALSE!
+  if (s1.isEmpty() || s2.isEmpty())
+     return FALSE;
+ 
+  // You might have to do some casting here
+  if(s1.pop() != s2.pop())
+     return FALSE;
+
+  // recursive case
+  return sameStack(s1, s2);
+}
+
+{% endhighlight %}
+
+</div>
+
+
+* Problem 3 will be covered next tuesday. 
+
+<a name="p4" href="#p4" onclick="toggle_visibility('p4div1');">4 - Click to show</a>
+
+<div id="p4div1" class="hints">
+For a given problem of size N, at given step i,  binary search discards 1/2 of the remaining candidates.
+
+Thus at a given stage, there are N/(2 ^i^ ) candidates remaining.  
+ 
+In each step, only one item is accessed, so each step is constant time. 
+
+Search terminates when either the item is one of the tested values, or when the last possible candidate has been tested. For this to be the case, there must be only one candidate. 
+
+This implies that search terminates when N/(2 ^i^) <= 1. 
+Solving this equation for i gives log(N) steps, each taking constant time, which is O(log(N)) * O(1) = O(log(N))
+
+</div>
+
+* The solution to this problem 5 is in the notes for lecture 1. We will review it briefly Tuesday. 
+
+<a name="p6" href="#p6" onclick="toggle_visibility('p6div1');">6 - Click to show</a>
+
+<div id="p6div1" class="hints">
+
+Push operands on to the stack. Whenever an operator is encountered, pop two things off of the stack, apply the operator, and push the result back on to the stack. 
+
+For full credit, make sure that you cover termination of the algorithm and mention error cases. 
+
+Terminate at EOL. Error if stack is empty before a required pop or not empty when EOL is encountered. 
+
+</div>
+
+* Problem 7 will be covered Tuesday. 
+
+<a name="p8" href="#p6" onclick="toggle_visibility('p8div1');">8 - Click to show</a>
+
+<div id="p8div1" class="hints">
+
+* The values of an expression tree are all in it's leaves. 
+* Interior nodes are all operators
+* All of our operators are binary. 
+* What kind of tree is this?
+** A full tree. 
+* What kind of traversal do we need to make sure we have the values the operator will apply to?
+** Children first -Post order. 
+
+{% highlight java %}
+
+// Recursive solution psuedocode
+bc. public Integer getValue(Node n)
+{
+  // start with the trivial base cases 
+  // Two empty children implies this must be an operand node. 
+  if (n.left == null && n.right == null)
+     if( n.type != OPERAND)
+     	 // We have no way to signal failure, so failure is not expected to be possible
+	 // throw an exception here
+     else 
+     	 return n.value;
+  
+  //One empty child is definitely a bug
+  if (n.left == null && n.right == null)
+     // Throw an exception
+
+  // Do post order traversal - process children first
+  Integer lval = getValue(n.left);
+  Integer rval = getValue(n.right);
+
+  // and now process current node. 
+  return n.operate(lval, rval);
+   
+}
+
+{% endhighlight %}
+
+
+</div>
+
+
+
+<a name="p9" href="#p9" onclick="toggle_visibility('p9div1');">9 - Click to show</a>
+
+<div id="p9div1" class="hints">
+
+
+* What are the edge cases?
+** Tail
+** Head
+** Head and Tail
+
+{% highlight java %}
+
+// Recursive solution psuedocode
+bc. public DLNode deleteNode(DLNode first, int x )
+{
+  if(first == null)
+    return first;
+
+  // If it isn't this element, just go on to the next one
+  if (first->getElement() != x)
+     {
+	first->setNext(deleteNode(first->getNext(), x));     
+    }
+    else
+    {
+     // set the prev pointer of next to the prev point of current
+     DLNode next = first.getNext();
+     // Test if it is the tail befoe attempting to set the next of anything. 
+     if(next)
+     {
+	// This does the right thing for the head value too, setting its next nodes prev to null
+	// making it the new head. 
+	next.setPrev(first.getPrev);
+     }
+
+     // Returning the next here eliminates the tail pointer by having itss predecessor call setNext on null. 
+     //It does the correct the for the head node, returning the next value
+     return next;
+    }
+
+    return first;
+}
+
+{% endhighlight %}
+
+
+</div>
+
+
+<a name="p10" href="#p10" onclick="toggle_visibility('p10div1');">10 - Click to show</a>
+
+* What kind of traversal do we want here? 
+** Post order again. 
+
+* Edge cases?
+
+<div id="p10div1" class="hints">
+
+{% highlight java %}
+
+bc. public void ChildSwap(treeNode t)
+{
+  if(t == null)
+    return;
+
+  ChildSwap(t.left);
+  ChildSwap(t.right);
+  treeNode temp = t.left;
+  t.left = t.right;
+  t.right = temp;
+  return;
+}
+
+
+{% endhighlight %}
+
+
+</div>
+
+* Problem 11 is solved in the notes - simple post order traversal with a max operation. 
+* Problem 12 will be addressed on Tuesday. 
+
+<a name="p13" href="#p13" onclick="toggle_visibility('p13div1');">13 - Click to show</a>
+
+<div id="p13div1" class="hints">
+
+
+
+* What can we say with certainty?
+** The last thing on a postorder list is the root. 
+** The second to last thing must be a child of the root. 
+** The third to last thing may not be. 
+
+
+* Rough algorithm. 
+** Take the right most value from the post order tree
+** Find it's location in the in order tree. 
+** Everything to the left of it in the in order tree is in it's left subtree. 
+** Everything to the right is in it's right subtree. 
+** Of the elements in the postorder tree, starting from the back, find the first element in each subtree set.
+** recurse. 
+
+
+
+bc. Post order GDBHIEFCA   In oder DGBAHEICF 
+Partition(P) with A 
+Left subtree(LS) : DGB                Right subtree(RS) HEICF 
+                  P(B)                          P(C) 
+        LS: DG       RS:                    LS: HEI      RS F 
+	P(D)                               P(E) 
+     LS:       RS: G                  LS:H     RS: I
+Tree:      A 
+	/      \ 
+       B        C  
+      /        /  \ 
+     D        E    F 
+    /        / \  
+   G        H   I 
+
+
+</notextile>
+
+</div>
+
+
+
+<a name="p14" href="#p14" onclick="toggle_visibility('p13div1');">14 - Click to show</a>
+
+<div id="p14div1" class="hints">
+
+
+* We know how to test for balance - but we need the height
+* Getting the height requires two things
+** post order traversal
+** A function signature that lets us return height values from the recursive calls. 
+* Obviously, we will need a helper function 
+* This helper function should both calculate height and report imbalance at the same time. 
+
+
+{% highlight java %}
+
+bc. public Boolean isAvlBalanced(Node n)
+{
+    return balanceHeightTest(n) > -2;
+}
+
+/* Returns -2 if not balanced, height otherwise. 
+*
+*/
+public int balanceHeightTest(Node n)
+{
+  // Use -1 definition of child of leaf test for convenience. 
+  if (n == null)
+     return -1;
+
+  // Do post order traversal  
+  int leftBalanced = balanceHeightTest(n.left);
+  int rightBalanced = balanceHeightTest(n.right);
+  // check if either is unbalanced. If they are, propogate up. 
+  if (n.left == -2 || n.right == -2)
+     return -2;
+  
+  // otherwise return true;     
+  return max(leftBalanced, rightBalanced) + 1;
+}
+
+{% endhighlight %}
+
+</div> 
+
+
+
+<a name="p15" href="#p15" onclick="toggle_visibility('p15div1');">15 - Click to show</a>
+
+<div id="p15div1" class="hints">
+
+
+* What are the possible error conditions?
+** Full array
+** Duplicate values? Ask, if unsure. 
+
+{% highlight java %}
+
+bc. public void insert(Object o)
+{
+  // Test for fullness
+  if(currentSize >= capacity)
+  {
+	// Throw an exception here if error cannot be reported. 
+  }
+  //Set insertion index to current last index
+  int currentIndex = currentSize;
+  // Increment current size;
+  currentSize += 1;
+  Object currentObject = o;
+  while(currentIndex > 0)
+  {
+    val = currentObject.compare(array[currentIndex/2])
+   // Test for duplicate
+    if(!val) 
+        // Throw exception
+    if (val < 0) 
+       {
+         array[currentIndex] = currentObject;
+       	 currentIndex /= 2;
+	 }
+     else
+     {
+	break;
+     }
+  }
+}
+
+{% endhighlight %}
+
+</div> 
