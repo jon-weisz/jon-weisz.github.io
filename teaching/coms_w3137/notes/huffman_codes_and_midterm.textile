@@ -283,7 +283,7 @@ bc. public Integer getValue(Node n)
      	 return n.value;
   
   //One empty child is definitely a bug
-  if (n.left == null && n.right == null)
+  if (n.left == null || n.right == null)
      // Throw an exception
 
   // Do post order traversal - process children first
