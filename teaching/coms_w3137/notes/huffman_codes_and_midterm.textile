@@ -428,7 +428,7 @@ Tree:      A
 
 
 
-<a name="p14" href="#p14" onclick="toggle_visibility('p14div1');">14 - Click to show</a>
+<a name="p14" href="#p14" onclick="toggle_visibility('p13div1');">14 - Click to show</a>
 
 <div id="p14div1" class="hints">
 
@@ -506,11 +506,12 @@ bc. public void insert(Object o)
         // Throw exception
     if (val < 0) 
        {
-         array[currentIndex] = currentObject;
+         array[currentIndex] = array[currentIndex/2];
        	 currentIndex /= 2;
 	 }
      else
      {
+	array[currentIndex] = currentObject;  
 	break;
      }
   }
