@@ -1,0 +1,21 @@
+---
+title: "Publications"
+layout: page
+author: jon_weisz_columbia
+---
+
+* Jonathan Weisz, Alexander G. Barszap, Sanjay S. Joshi, and Peter K. Allen, "Single Muscle Site sEMG Interface for Assistive Grasping":http://www.cs.columbia.edu/~allen/PAPERS/bci_iros14.pdf , IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) September 14-18, 2014. Chicago. Video
+
+* Youngbum Jun, Jonathan Weisz, Christopher Rasmussen, Peter Allen and Paul Oh, "Real-Time Teleop with Non-Prehensile Manipulation":http://www.cs.columbia.edu/~allen/PAPERS/tepra14.pdf , IEEE International Conference on Technologies for Practical Robot Applications (TePRA), April 14 -15, 2014
+
+* Jonathan Weisz, Carmine Elvezio, and Peter K. Allen, "A User Interface for Assistive Grasping":http://www.cs.columbia.edu/~allen/PAPERS/weisz_iros13.pdf , IEEE/RSJ International Conference on Robots and Systems (IROS), Nov. 2013. Tokyo
+
+* Jonathan Weisz, Benjamin Shababo, Lixing Dong, Peter K. Allen, "Grasping with Your Face":http://www.cs.columbia.edu/~allen/PAPERS/iser2012.pdf , 13th International Symposium on Experimental Robotics (ISER) June 17-21, 2012.
+
+* Jonathan Weisz and Peter K. Allen, "Pose Error Robust Grasping from Contact Wrench Space Metrics":http://www.cs.columbia.edu/~allen/PAPERS/weisz_icra12.pdf , 2012 IEEE International Conference on Robotics and Automation, pp. 557 - 562.
+
+* Frank L. Hammond III, Jonathan Weisz, Andrés A. de la Llera Kurth, Peter K. Allen,and Robert D. Howe, "Towards a Design Optimization Method for Reducing the Mechanical Complexity of Underactuated Robotic Hands":http://www.cs.columbia.edu/~allen/PAPERS/hammond_icra12.pdf ,2012 IEEE International Conference on Robotics and Automation, pp. 2843 - 2848.
+
+* Hao Dang, Jon Weisz and Peter K. Allen, "Blind Grasping: Stable Robotic Grasping Using Tactile Feedback and Hand Kinematics":http://www.cs.columbia.edu/~allen/PAPERS/hao_icra_2011.pdf , ICRA 2011, Shanghai.
+
+* Long Wang, Joseph DelPreto, Sam Bhattacharyya, Jonathan Weisz, Peter K. Allen, "A highly-underactuated robotic hand with force and joint angle sensors":http://www.cs.columbia.edu/~allen/PAPERS/iros2011_hand.pdf , 2011 IEEE/RSJ International Conference on Intelligent Robots and Systems, Sep. 26-29, 2011, San Francisco.
