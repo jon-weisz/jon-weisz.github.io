@@ -222,7 +222,27 @@ bc. public Boolean sameStack(stack s1, stack s2)
 </div>
 
 
-* Problem 3 will be covered next tuesday. 
+
+<a name="p3" href="#p3" onclick="toggle_visibility('p3div1');">3 - Click to show</a>
+
+<div id="p3div1" class="hints">
+* Definition of a perfect tree
+** All leaf nodes have the same depth, h, 
+** All other nodes are full nodes.
+
+* A single node is a perfect tree of height 0. 
+* The number of leaf nodes in the tree N(0) =  1 = 2 ^0^ = 2 ^k^ for k=0
+
+* Given that the height of a perfect tree of height k-1 has 2 ^k-1^ leaf nodes.
+** To create a perfect tree of height k, we must add two nodes to each of the leaf nodes of the tree of height k - 1. If we do not, either some nodes will still be at a higher level, or some nodes wil not be full,which would violate the definition of a full tree.  
+** Therefore, the number of nodes at height N(k) = 2*N(k-1) = 2(2 ^k-1^) = 2 ^k^.
+
+Q.E.D.
+
+
+
+
+</div>
 
 <a name="p4" href="#p4" onclick="toggle_visibility('p4div1');">4 - Click to show</a>
 
