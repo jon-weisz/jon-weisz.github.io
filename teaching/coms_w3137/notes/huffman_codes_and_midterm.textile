@@ -254,7 +254,30 @@ Terminate at EOL. Error if stack is empty before a required pop or not empty whe
 
 </div>
 
-* Problem 7 will be covered Tuesday. 
+* 
+<a name="p7" href="#p6" onclick="toggle_visibility('p7div1');">7 - Click to show</a>
+
+<div id="p7div1" class="hints">
+
+The easiest way to do this is to convert to postfix notation:
+* (5*(4+3^2)*4-6) 
+* 5 4 3 2 ^ + * 4 * 6 -
+
+Now start from the back building a tree, noting that numbers are terminal, and performing an "pre order" insertion. That is, insert the next two symbols as the left and right subtrees of the current node, then following either the left and right subtrees if they aren't terminal symbols. 
+
+               -
+           /        \
+          6          * 
+                  /    \
+                 5      +
+                       / \
+                      ^   4
+                     / \
+                    3   2                       
+                                        
+        
+
+</div>
 
 <a name="p8" href="#p6" onclick="toggle_visibility('p8div1');">8 - Click to show</a>
 
