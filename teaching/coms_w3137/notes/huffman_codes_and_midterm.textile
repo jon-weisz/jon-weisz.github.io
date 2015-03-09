@@ -382,7 +382,16 @@ bc. public void ChildSwap(treeNode t)
 </div>
 
 * Problem 11 is solved in the notes - simple post order traversal with a max operation. 
-* Problem 12 will be addressed on Tuesday. 
+<a name=<p12 href="#p12" onclick="toggle_visibility('p12div1');">12 - Click to show</a>
+<div id="p12div1" class="hints">
+!>{{site.url}}/teaching/coms_w3137/images/splay_tree_solution.jpg!
+
+<br>
+
+"Splay Tree Inertactive Solution":https://www.cs.usfca.edu/~galles/visualization/SplayTree.html 
+
+</div>
+ 
 
 <a name="p13" href="#p13" onclick="toggle_visibility('p13div1');">13 - Click to show</a>
 
