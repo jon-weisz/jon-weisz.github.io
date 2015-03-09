@@ -530,8 +530,7 @@ public int balanceHeightTest(Node n)
 
 
 
-<!--<a name="p15" href="#p15" onclick="toggle_visibility('p15div1');">15 - Click to show</a>-->
-* 15 - This problem will be covered on Tuesday
+<a name="p15" href="#p15" onclick="toggle_visibility('p15div1');">15 - Click to show</a>
 
 <div id="p15div1" class="hints">
 
