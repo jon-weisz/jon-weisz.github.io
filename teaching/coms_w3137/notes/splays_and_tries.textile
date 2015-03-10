@@ -68,7 +68,7 @@ h2. Efficiency
 
 h1. Tries (Radix trees, Prefix Trees)
  
-!>{{site.url}}/teaching/coms_w3137/images/dictionary_tree.jpg!
+!{{site.url}}/teaching/coms_w3137/images/dictionary_tree.jpg!
 * Tries are like looking things up in a dictionary.
 ** Key value lookup
 ** More than two children (multiway)

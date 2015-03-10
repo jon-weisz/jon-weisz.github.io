@@ -109,7 +109,9 @@ h1. Midterm Questions
 
 h2. Problems
 
-<a name="p1" href="#p1" onclick="toggle_visibility('p1div1');">1 - Click to show</a>
+h3. Problem 1:
+
+h4. Part <a name="p1" href="#p1" onclick="toggle_visibility('p1div1');">1a - Click to show</a>
 
 <div id="p1div1" class="hints">
 
@@ -150,7 +152,7 @@ bc. public Node reverse(Node p)
 ** Tail node is handled by base case.
 ** Head node?
 
-<a name="p1" href="#p1" onclick="toggle_visibility('p1div2');">1 - continued - Click to show</a>
+h4. Part <a name="p1" href="#p1" onclick="toggle_visibility('p1div2');">1b - continued - Click to show</a>
 
 <div id="p1div2" class="hints">
 
@@ -191,7 +193,8 @@ Notice that if node n is defined after the recursion, or if the next of n is set
 
 Also, the head node is never the 'next' of any node on the way down the call stack. It is never assigned to n, so it never gets it's next reassigned, and it remains null. 
 
-<a name="p2" href="#p2" onclick="toggle_visibility('p2div1');">2 - Click to show</a>
+
+h3. <a name="p2" href="#p2" onclick="toggle_visibility('p2div1');">2 - Click to show</a>
 
 <div id="p2div1" class="hints">
 
@@ -223,7 +226,7 @@ bc. public Boolean sameStack(stack s1, stack s2)
 
 
 
-<a name="p3" href="#p3" onclick="toggle_visibility('p3div1');">3 - Click to show</a>
+h3. <a name="p3" href="#p3" onclick="toggle_visibility('p3div1');">3 - Click to show</a>
 
 <div id="p3div1" class="hints">
 * Definition of a perfect tree
@@ -244,7 +247,7 @@ Q.E.D.
 
 </div>
 
-<a name="p4" href="#p4" onclick="toggle_visibility('p4div1');">4 - Click to show</a>
+h3. <a name="p4" href="#p4" onclick="toggle_visibility('p4div1');">4 - Click to show</a>
 
 <div id="p4div1" class="hints">
 For a given problem of size N, at given step i,  binary search discards 1/2 of the remaining candidates.
@@ -260,9 +263,11 @@ Solving this equation for i gives log(N) steps, each taking constant time, which
 
 </div>
 
-* The solution to this problem 5 is in the notes for lecture 1. We will review it briefly Tuesday. 
+h3. 5 - See lecture notes. 
 
-<a name="p6" href="#p6" onclick="toggle_visibility('p6div1');">6 - Click to show</a>
+The solution to this  is in the notes for lecture 1. We will review it briefly Tuesday. 
+
+h3. <a name="p6" href="#p6" onclick="toggle_visibility('p6div1');">6 - Click to show</a>
 
 <div id="p6div1" class="hints">
 
@@ -274,8 +279,8 @@ Terminate at EOL. Error if stack is empty before a required pop or not empty whe
 
 </div>
 
-* 
-<a name="p7" href="#p6" onclick="toggle_visibility('p7div1');">7 - Click to show</a>
+ 
+h3. <a name="p7" href="#p6" onclick="toggle_visibility('p7div1');">7 - Click to show</a>
 
 <div id="p7div1" class="hints">
 
@@ -299,7 +304,7 @@ Now start from the back building a tree, noting that numbers are terminal, and p
 
 </div>
 
-<a name="p8" href="#p6" onclick="toggle_visibility('p8div1');">8 - Click to show</a>
+h3. <a name="p8" href="#p6" onclick="toggle_visibility('p8div1');">8 - Click to show</a>
 
 <div id="p8div1" class="hints">
 
@@ -345,7 +350,7 @@ bc. public Integer getValue(Node n)
 
 
 
-<a name="p9" href="#p9" onclick="toggle_visibility('p9div1');">9 - Click to show</a>
+h3. <a name="p9" href="#p9" onclick="toggle_visibility('p9div1');">9 - Click to show</a>
 
 <div id="p9div1" class="hints">
 
@@ -394,7 +399,7 @@ bc. public DLNode deleteNode(DLNode first, int x )
 </div>
 
 
-<a name="p10" href="#p10" onclick="toggle_visibility('p10div1');">10 - Click to show</a>
+h3. <a name="p10" href="#p10" onclick="toggle_visibility('p10div1');">10 - Click to show</a>
 
 * What kind of traversal do we want here? 
 ** Post order again. 
@@ -424,11 +429,18 @@ bc. public void ChildSwap(treeNode t)
 
 </div>
 
-* Problem 11 is solved in the notes - simple post order traversal with a max operation. 
+h3. Problem 11 
 
-<a name=<p12 href="#p12" onclick="toggle_visibility('p12div1');">12 - Click to show</a>
+Solved in the notes - simple post order traversal with a max operation. 
+
+<br>
+
+
+h3. <a name="p12" href="#p12" onclick="toggle_visibility('p12div1');">12 - Click to show</a>
+
 <div id="p12div1" class="hints">
-!>{{site.url}}/teaching/coms_w3137/images/splay_tree_solution.jpg!
+
+!{{site.url}}/images/splay_tree_solution.png!
 
 <br>
 
@@ -437,7 +449,7 @@ bc. public void ChildSwap(treeNode t)
 </div>
  
 
-<a name="p13" href="#p13" onclick="toggle_visibility('p13div1');">13 - Click to show</a>
+h3. <a name="p13" href="#p13" onclick="toggle_visibility('p13div1');">13 - Click to show</a>
 
 <div id="p13div1" class="hints">
 
@@ -481,7 +493,7 @@ Tree:      A
 
 
 
-<a name="p14" href="#p14" onclick="toggle_visibility('p14div1');">14 - Click to show</a>
+h3. <a name="p14" href="#p14" onclick="toggle_visibility('p14div1');">14 - Click to show</a>
 
 <div id="p14div1" class="hints">
 
@@ -529,11 +541,19 @@ public int balanceHeightTest(Node n)
 
 </div> 
 
+<br>
+<br>
 
+h3. Problem 15
 
-<a name="p15" href="#p15" onclick="toggle_visibility('p15div1');">15 - Click to show</a>
+See textbook. 
 
-<div id="p15div1" class="hints">
+<br>
+<br>
+
+h3. <a name="p16" href="#p16" onclick="toggle_visibility('p16div1');">16 - Click to show</a>
+
+<div id="p16div1" class="hints">
 
 
 * What are the possible error conditions?
@@ -576,3 +596,8 @@ bc. public void insert(Object o)
 {% endhighlight %}
 
 </div> 
+
+
+h3. Problem 17.
+
+This problem is very open ended. It is left as an exercise to the reader. 

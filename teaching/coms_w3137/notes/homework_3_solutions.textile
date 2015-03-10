@@ -142,6 +142,7 @@ h3. Difference between AVL and Splay trees
 
 
 h2. Analyzing recursive functions
+
 h3. Steps
 * Write out the recursion psuedocode. 
 * Calculate the cost starting from the base case and working your way backwards using concrete numbers
