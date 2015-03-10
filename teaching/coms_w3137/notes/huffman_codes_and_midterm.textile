@@ -425,6 +425,7 @@ bc. public void ChildSwap(treeNode t)
 </div>
 
 * Problem 11 is solved in the notes - simple post order traversal with a max operation. 
+
 <a name=<p12 href="#p12" onclick="toggle_visibility('p12div1');">12 - Click to show</a>
 <div id="p12div1" class="hints">
 !>{{site.url}}/teaching/coms_w3137/images/splay_tree_solution.jpg!
