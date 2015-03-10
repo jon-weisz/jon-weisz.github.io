@@ -26,7 +26,7 @@ author: jon_weisz_columbia
 </style>
 </notextile>
 
-!>{{site.url}}/teaching/coms_w3137/images/zigzag_tree.jpg! 
+!{{site.url}}/teaching/coms_w3137/images/zigzag_tree.jpg! 
 
 
 h1. Splay Trees
