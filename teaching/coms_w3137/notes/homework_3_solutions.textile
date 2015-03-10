@@ -1,0 +1,154 @@
+---
+title: "Homework 3 and Midterm Review"
+layout: teaching_page
+author: jon_weisz_columbia
+---
+
+
+h2. Homework 3 Solutions
+
+h3. 1 -  Give a formal proof using induction that the number of leaf nodes in a perfect binary tree is 2 ^k^ .
+* Shown in previous section
+
+
+h3. 2-  Give a formal proof using induction that the number of interior nodes in a perfect binary tree of height K is 2 ^k^-1 
+* For a tree of height 0, there is 1 leaf node and 0 interior nodes. Call the number of interior nodes I(k). The height of a tree's root is 0, so:
+** I(0) = 2 ^0^ -1 = 2 ^0^ -1 = 1 - 1 = 0.
+** This shows it for the base case. 
+* Now for the inductive step, take it as a given that I(k-1) = 2 ^k-1^ - 1
+* From the previous proof, the number of leaves at height k L(k) is  2 ^k^ leaf nodes in a perfect tree of height. 
+* From the definition of the perfect tree, each leaf node of the height k tree must be at height k, so each of the leaf nodes of the k-1 tree must become an interior node. 
+* Therefore, we have:
+   I(k) = I(k-1) + L(k-1) 
+        = I(k-1) + 2 ^k-1^ 
+        = 2 ^k-1^ - 1 + 2 ^k-1^ 
+        = 2*(2 ^k-1^) - 1 
+        = 2 ^k^ - 1.
+
+* Q.E.D.
+
+<br>
+<br>
+
+h3. 3 - A full node is a node with two children. Prove that the number of full nodes plus one is equal to the number of leaves in a nonempty binary tree.
+
+* Take the base case as a single node. 
+** The number of full nodes F(1) = 0. The number of leaf nodes L(1) = 1
+** This fulfills the base case. 
+* For the inductive step, consider adding a single node - which is always a leaf. 
+** If a node has been added to a parent with 0 children, in which case the node now has 1 child and is no longer a leaf node. This leaves the number of full nodes and leaf nodes unchanged. 
+** If a node has been added to a parent with 1 child, the parent becomes a full node, and the child becomes an additional leaf node. Thus:
+### L(k) = L(k - 1) + 1
+### F(k) = F(K - 1) + 1 = (L(K - 1) + 1) + 1 
+### Substituting equation 1 into equation 2:  F(k) = L(K) + 1 .
+** A node cannot be added to a parent with two children. 
+* Q.E.D. 
+
+h3. 4 - Give the prefix, infix, and postfix expressions corresponding to the tree in Figure 4.71.
+
+* This question is straight forwards. Just parse the tree using the tree traversal algorithm suggested by the prefix of the expression type- preorder, inorder, and post order. 
+
+* The only tricky part of this question is that the inorder traversal requires parenthesis at around each statement except possibly the top one. 
+
+!>{{site.url}}/teaching/coms_w3137/images/homework4_tree1.png!
+
+# - * * a b + c d e.
+# ( ( a * b ) * ( c + d ) ) - e.
+# a b * c d + * e -.
+
+h3. 5 - Refer to homework solutions guide 
+
+* ( This is a note to the instructor. Students don't get this guide. See the Splay tree visualization below for the answer. )
+
+https://www.cs.usfca.edu/~galles/visualization/SplayTree.html
+
+
+
+h3. 6 - Count number of full nodes
+
+* The worst case of both of this algorithms is O(N) - It is not possible to avoid checking every node in either case. 
+* Any "count" property that includes subtrees has to return results that visits those child subtrees, so the traversal is always effectively post order. You cannot return the solution without calculating it for both children first. 
+
+bc. // An alternative method is to use the results of Exercise 4.6.
+static int countFull( Node t )
+{
+  // First find the base case
+  if( t == null )
+      return 0;
+  // Calculate things that need information from this node, if possible.
+    int tIsFull = ( t.left != null && t.right != null ) ? 1 : 0;
+
+  // recurse
+  return tIsFull + countFull( t.left ) + countFull( t.right );
+}
+ 
+
+h3. 7 - Are trees similar?
+The definition of "similar here is simple, but it is sufficient to enforce that the entire structure of the trees are exactly the same. 
+
+
+static boolean similar( Node t1, Node t2 )
+{
+// The base case is that if one child is empty, the other must also be empty. 
+if( t1 == null || t2 == null )
+    return t1 == null && t2 == null;
+
+// The style of traversal is post order. The property depends on both children. 
+return similar( t1.left, t2.left ) && similar( t1.right, t2.right );
+}
+
+
+h2. Review of Rotations
+
+h3. What is a rotation? 
+
+!http://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Splay_tree_zig.svg/709px-Splay_tree_zig.svg.png! 
+"Splay tree zig" by Zig.gif: User:Regnaronderivative work: Winniehell (talk) - Zig.gif. Licensed under CC BY-SA 3.0 via Wikimedia Commons - http://commons.wikimedia.org/wiki/File:Splay_tree_zig.svg#mediaviewer/File:Splay_tree_zig.svg
+
+
+* A rotation is an operation on a binary tree that swaps the relationship between a target node and it's parent. 
+** The target moves to the the parent node's height and the parent node moves to the target's height.
+** The direction of the rotation tells you how the parent node will be connected to the target node after the rotation. 
+** A right rotation makes the parent node the right child of the target node. 
+** The target's relationship to the parent is the opposite of the direction of the rotation. A right rotation moves the left child up. The right child of the parent moves down. 
+** The left child of the target also moves up a level. The right child stays at the same level.
+** This means that the parent node no longer has a left child, and that the targets old right child has no parent. 
+** Recall that the right child of the target is still less than the parent, and thus still belongs in it's left subtree. Inserting it there maintains the BST constraint, and luckily there is a hole there.
+** This completes a single rotation. 
+
+h3. What is a double rotation?
+* A double rotation is two consecutive rotations involving the a single lineage of nodes.   
+** A target, a parent, and a grand parent. 
+* How many possible double rotations are there?
+** Order matters and the target must rotate. 
+* Target - parent, target - grandparent. -- AVL double rotation, Zig-Zag rotation. 
+* Parent - grandparent, target - Parent. Zig-Zig double rotation
+
+h3. Splay Tree rotations. 
+* Double rotations move the target up 2 nodes. 
+* The target node must end up at the root 
+**  if it's height was odd, a single rotation "zig" is necessary. 
+
+h3. Difference between AVL and Splay trees
+* AVL trees do at most 1 rotation on insertion. 
+** May do more than 1 on deletion. 
+** The Zig-Zig case for an AVL tree is resolved with a single rotation. 
+*** The AVL operation balances the tree. 
+*** The Zig-Zig rotation creates long linear runs that are rarely accessed, isolating the parts of the tree that are rarely used. 
+*** This is valuable for locality of reference. 
+* The constraints of the AVL and Splay tree are not compatible using local properties. 
+** Any further rotations after the balancing one will unbalance the tree. 
+** A less local operation would be necessary to pursue both goals. 
+
+
+h2. Analyzing recursive functions
+h3. Steps
+* Write out the recursion psuedocode. 
+* Calculate the cost starting from the base case and working your way backwards using concrete numbers
+* See if there is a trend in the numbers. 
+* If a proof is necessary, do it by induction. 
+
+
+
+
+
