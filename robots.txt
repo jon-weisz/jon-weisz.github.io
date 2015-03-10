@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /teaching/coms_w3137/
