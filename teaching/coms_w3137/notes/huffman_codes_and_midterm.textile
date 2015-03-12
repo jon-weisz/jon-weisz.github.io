@@ -440,11 +440,11 @@ h3. <a name="p12" href="#p12" onclick="toggle_visibility('p12div1');">12 - Click
 
 <div id="p12div1" class="hints">
 
-!{{site.url}}/images/splay_tree_solution.png!
+!{{site.url}}/teaching/coms_w3137/images/avl_tree_solution.png!
 
 <br>
 
-"Splay Tree Inertactive Solution":https://www.cs.usfca.edu/~galles/visualization/SplayTree.html 
+"AVL Tree Inertactive Solution":https://www.cs.usfca.edu/~galles/visualization/AVLtree.html 
 
 </div>
  
