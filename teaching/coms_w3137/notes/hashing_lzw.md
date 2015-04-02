@@ -34,7 +34,7 @@ author: jon_weisz_columbia
 
 --
 
-<iframe width="1280" height="750" src="http://algoviz.org/OpenDSA/AV/Binary/huffmanBuildAV.html" frameborder="0" allowfullscreen></iframe>
+<iframe width="1000" height="750" src="http://algoviz.org/OpenDSA/AV/Binary/huffmanBuildAV.html" frameborder="0" allowfullscreen></iframe>
 
 
 --
@@ -128,26 +128,26 @@ author: jon_weisz_columbia
 ---
 
 ## How do we look up the right row in the table for each sequence?
-* Linear search is slow. {% fragment %}
-* A Binary Search tree might be faster {% fragment %} 
+* Linear search is slow. 
+* A Binary Search tree might be faster  
   * Sequence may have arbitrary length 
   * Comparison itself is slow 
-* Is there an O(1) soluton? {% fragment %}
+* Is there an O(1) soluton? 
   * If we could map from a sequence of characters to an integer, we could use an array 
-    * This is called Hashing {% fragment %}
+    * This is called Hashing 
 
 ---
 
 # Hashing
-  * Hash Tables {% fragment %}
-  * Associative Arrays {% fragment %}
-  * Dictionaries {% fragment %} 
+  * Hash Tables 
+  * Associative Arrays 
+  * Dictionaries  
 
 --
 
 ## Dictionaries are awesome
 * Dictionaries are common and easy to use in modern programming languages
-  * In many cases, most objects can be hashed automatically. {% fragment %}
+  * In many cases, most objects can be hashed automatically. 
     * O(1) lookup makes many applications almost magically useful
     
 
@@ -169,10 +169,10 @@ author: jon_weisz_columbia
 
 ## Hashing Example {SSN: Student}
 * Each student at Columbia has a unique Social Security Number
-  * This makes them a good identifier, but they are 9 digit numbers {% fragment %}
-  * There are only ~ 20,000 students {% fragment %}
-  * If we were to allocate an array of 10^9 students, it would be mostly empty (sparse) {% fragment %}
-* A hash of the Social Security Number may be more practical {% fragment %}
+  * This makes them a good identifier, but they are 9 digit numbers 
+  * There are only ~ 20,000 students 
+  * If we were to allocate an array of 10^9 students, it would be mostly empty (sparse) 
+* A hash of the Social Security Number may be more practical 
   * H(SSN) = SSN % 20000 would reduce the size of the array to the same as the minimal number of students
   * But there is no guarantee that no two hashed SSNs would be the same!
     * This overlap is called a "hash collision"
@@ -191,34 +191,34 @@ author: jon_weisz_columbia
 --
 
 ## Problems in hashing
-* Hash functions must be fast {% fragment %}
+* Hash functions must be fast 
   * Otherwise there is no point 
-* Some applications require arbitrary sized data. {% fragment %}
-* We may not know apriori how much data we must store. {% fragment %}
+* Some applications require arbitrary sized data. 
+* We may not know apriori how much data we must store. 
   * Table size can grow with data if the hash function can adapt. 
   * If the table size is too small, we will have more collisions.
-* We may not know how the data is distributed {% fragment %}
+* We may not know how the data is distributed 
   * We need a generic hash function with a low  probability of collision.
   * This means we need a function that spreads the data out evenly <br> <br>
-* Can anyone think of a magic function that would do this for us? {% fragment %}
+* Can anyone think of a magic function that would do this for us? 
 
 --
 
 # There is no magic.
-* What do we do? {% fragment %}
+* What do we do? 
 
 ---
 
 ## Hash table design
-* Choose a table size {% fragment %}
+* Choose a table size 
   * large enough to spread the data out
   * but not so large that space is wasted <br> <br>
-* Choose a hash function {% fragment %}
+* Choose a hash function 
   * quick to compute 
   * accepts arbitrary number of elements in data
   * produces uncorrelated data from possibly correlated input
     * produce even distribution <br> <br>
-* Choose a policy to handle collisions.  {% fragment %}
+* Choose a policy to handle collisions.  
 
 --
 
@@ -335,14 +335,24 @@ size_t hash_combine(T[] val){
 
 ---
 
-## Homework 4 LZW Encoding and GIFs
+## Creating Primes
+* Many of these schemes require prime numbers
+* We can maintain a table of prime numbers of arbitrary size. 
+* Or use Sieve of Eratosthenes to find all primes < N
+  * Create a bit set B of size N set all to 1
+  * for i < sqrt(N)
+  * for j = 0:sqrt(N)
+    *  set B[i*j] = 0
 
-* A skeleton for the homework will be up on github    
-  * You will need to merge it in using git pull  <br> <br>
-* This homework is all programming.  <br> <br>
-  * LZW encoding of arbitrary byte streams    
-  * Implement associative container with tree and hash table.    
-  * Implement color space compression using K-Means and KD trees  <br> <br>
+---
+
+<iframe width="1000" height="750" src="http://www.hbmeyer.de/eratosiv.htm" frameborder="0" allowfullscreen></iframe>
+
+---
+
+# How common are collisions?
+* This problem is exactly analogous to the birthday paradox
+* 
 
 </script>
 </section>
