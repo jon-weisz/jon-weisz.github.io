@@ -4,6 +4,8 @@ layout: page
 author: jon_weisz_columbia
 ---
 
+* Jonathan Weisz, "Assistive Robotic Grasping":http://jonweisz.com/papers_files/jw_thesis.pdf , Thesis, 2015. 
+
 * Jonathan Weisz, Alexander G. Barszap, Sanjay S. Joshi, and Peter K. Allen, "Single Muscle Site sEMG Interface for Assistive Grasping":http://www.cs.columbia.edu/~allen/PAPERS/bci_iros14.pdf , IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) September 14-18, 2014. Chicago. Video
 
 * Youngbum Jun, Jonathan Weisz, Christopher Rasmussen, Peter Allen and Paul Oh, "Real-Time Teleop with Non-Prehensile Manipulation":http://www.cs.columbia.edu/~allen/PAPERS/tepra14.pdf , IEEE International Conference on Technologies for Practical Robot Applications (TePRA), April 14 -15, 2014
