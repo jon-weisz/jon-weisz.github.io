@@ -32,6 +32,7 @@ See https://github.com/thewtex/docker-opengl-nvidia.git for an example of this a
 
 
 This approach is not particularly scalable, not robust, and requires a lengthy and complex build process for each user of the application. There are three main issues.
+
 1. Different flags are needed for different host configurations
 2. A mismatch between the host and client X server can cause graphical corruption.
 3. Modifying the container is very slow, inhibitting development of the underlying application.
@@ -52,3 +53,42 @@ The most similar project to this is [Subuser](http://subuser.org/), which attemp
 
 
 Support is planned initially for CUDA, OpenCL, and audio applications.
+
+#Installation
+
+It should be possible to install the required python packages through
+
+```
+pip install -r ./requirements.txt
+```
+
+Additionally, the application requires the glxinfo from mesa-utils package on debian and strace, which should be available from your package repository.
+
+
+
+
+#Demonstration
+
+To test whether your host system can be configured correctly, do
+
+```
+python ./tackle.py component-test
+```
+
+Which should output:
+
+```
+GL Rendering Component Passed
+Host Rendering Component Passed
+```
+
+Failure in either of these two tests indicates that the host does not have 
+
+```
+python ./tackle.py  component-demo
+```
+
+You should see an image similar to the one shown at the top of this post, with the gears moving.
+
+
+The really cool part of this demo is that it is running in an unmodified vanilla ubuntu:trusty container, without having to install X11 or the appropriate GPU vendor drivers!
