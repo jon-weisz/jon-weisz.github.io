@@ -7,6 +7,21 @@ comments: false
 image:
   feature: 11-19-2014/collada_post_header.png
 ---
+# UPDATE 11-20-2016
+Many of the problems noted in this post have been fixed by this [PR](https://github.com/ros-planning/geometric_shapes/pull/52)
+to the geometry_shapes package. Thanks to Gijs vd. Hoorn for this fix!
+
+In short, the Collada parser used by MoveIt! and 
+much of the rest of the ROS ecosystem is now consistent with the behavior of RViz. The key note from the PR is the following:
+
+> Assimp enforces a Y_UP convention when importing file formats that store this metadata, such as the collada format with the <up_axis> tag.
+
+It is still probably not consistent with Gazebo - Check that the up_axis of your collada files is the Y axis to make sure that Assimp doesn't rotate your models.
+
+WARNING: Note that this PR will be released into the binary packages soon, and may result in both your visual and collision meshes rotating mysteriously. 
+
+I have left the rest of this post intact for historical reasons. 
+
 # What is wrong with this bleeping robot!
 We've had a Mico robot in the lab for a little while now, and in some ways it's a neat little guy. It's fast and smooth, and it has a nicely polished look. Unfortunately, the MoveIt! package that I have been using to plan smooth trajectories for it has been working... intermittently for quite some time. There are a bunch of small issues that complicate things.
  
