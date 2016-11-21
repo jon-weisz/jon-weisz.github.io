@@ -9,7 +9,7 @@ image:
 ---
 # UPDATE 11-20-2016
 Many of the problems noted in this post have been fixed by this [PR](https://github.com/ros-planning/geometric_shapes/pull/52)
-to the geometry_shapes package. Thanks to Gijs vd. Hoorn for this fix!
+to the geometry_shapes package. Thanks to Maarten de Vries and Gijs vd. Hoorn for this fix!
 
 In short, the Collada parser used by MoveIt! and 
 much of the rest of the ROS ecosystem is now consistent with the behavior of RViz. The key note from the PR is the following:
