@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lets not use COLLADA for simple geometry anymore."
+title: "Lets not use COLLADA for simple geometry anymore. *UPDATED*"
 excerpt: "Fool me once, shame on ... someone. Look, these files just suck."
 tags: [Robotics, Assimp, Moveit, Collada, Fool-me-twice]
 comments: false
